@@ -1,30 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+
 import Dice from "./components/Dice";
+import { DiceContext } from "./contexts/DiceContext";
 
 function App() {
-  const [rolling, setRolling] = useState(false);
-
-  useEffect(() => {
-    if (rolling) {
-      setTimeout(() => {
-        setRolling(false);
-      }, 2000);
-    }
-  }, [rolling]);
+  const { rolling, startRoll, rolledNumber } = useContext(DiceContext);
 
   return (
     <main>
       <section>
-        <Dice rolling={rolling} />
+        <Dice />
       </section>
       <footer>
-        <button
-          type="button"
-          onClick={() => setRolling(true)}
-          disabled={rolling}
-        >
+        <button type="button" onClick={() => startRoll()} disabled={rolling}>
           {rolling ? "rolling..." : "roll"}
         </button>
+        <p>{rolledNumber}</p>
       </footer>
     </main>
   );

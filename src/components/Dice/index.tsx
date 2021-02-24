@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Canvas } from "react-three-fiber";
+import { DiceContext } from "../../contexts/DiceContext";
 
 import View from "./View";
 
@@ -11,11 +13,9 @@ const camera = {
   },
 };
 
-type DiceProps = {
-  rolling: boolean;
-};
+const Dice: React.FC = () => {
+  const diceContext = useContext(DiceContext);
 
-const Dice: React.FC<DiceProps> = ({ rolling }) => {
   return (
     <Canvas
       camera={{
@@ -26,7 +26,7 @@ const Dice: React.FC<DiceProps> = ({ rolling }) => {
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
 
-      <View rolling={rolling} />
+      <View diceContext={diceContext} />
     </Canvas>
   );
 };
